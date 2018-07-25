@@ -82,7 +82,7 @@ module PagarMe
     end
 
     def method_missing(name, *args, &block)
-      name = name.to_sym
+      name = name.to_s
 
       unless block_given?
         if name.end_with?('=') && args.size == 1
@@ -96,7 +96,7 @@ module PagarMe
       end
 
       if attributes.respond_to? name
-        return attributes.public_send name, *args, &block
+        return attributes.public_send name.to_sym, *args, &block
       end
 
       super name, *args, &block
